@@ -1,56 +1,52 @@
+function addTask() {
+    // Get the input value
+    var taskInput = document.getElementById('taskInput');
+    var taskText = taskInput.value.trim();
 
-// alert("connected")
-// addEventListener('Add Todo')
-// userInput = {
+    // If the input is not empty
+    if (taskText !== '') {
+      // Create a new list item
+      var listItem = document.createElement('li');
 
-// }
-// let getInput = JSON.stringify(userInput)
+      // Create a checkbox
+      var checkbox = document.createElement('input');
+      checkbox.type = 'checkbox';
+      checkbox.addEventListener('change', function () {
+        toggleTaskStatus(listItem, checkbox.checked);
+      });
 
+      // Create a span for the task text
+      var taskSpan = document.createElement('span');
+      taskSpan.textContent = taskText;
 
+      // Create a delete button
+      var deleteButton = document.createElement('button');
+      deleteButton.textContent = 'Delete';
+      deleteButton.addEventListener('click', function () {
+        deleteTask(listItem);
+      });
 
-var addButton = document.getElementById('add')
-addButton.addEventListener('click', addItem)
+      // Append elements to the list item
+      listItem.appendChild(checkbox);
+      listItem.appendChild(taskSpan);
+      listItem.appendChild(deleteButton);
 
-var removeButton = document.getElementById('remove')
-removeButton.addEventListener('click', removeItem)
+      // Append the list item to the task list
+      document.getElementById('taskList').appendChild(listItem);
 
-
-function addItem(){
-    var input = document.getElementById('input');
-    var item = input.value;
-    var ul = document.getElementById('list')
-    var textNode = document.createTextNode(item)  // gets the value of the input and adds it to the list
-
-    if (item === ''){
-        return false;
+      // Clear the input field
+      taskInput.value = '';
     }
-    else {
-        // create li
-       var li = document.createElement('li')
-       // create checkbox
-        var checkbox = document.createElement('input')
-        checkbox.type = 'checkbox';
-        checkbox.setAttribute('id', 'check')
-        // create label
+  }
 
-        var label = document.createElement('label')
-        // label.setAttribute('for', 'item') // optional
- 
-        // update web page
-        ul.appendChild(label)
-        li.appendChild(checkbox)
-        label.appendChild(textNode)
-        li.appendChild(label)
-        ul.insertBefore(li, ul.childNodes[0]);
-        li.className = 'visual'
+  function toggleTaskStatus(listItem, isChecked) {
+    if (isChecked) {
+      listItem.classList.add('completed');
+    } else {
+      listItem.classList.remove('completed');
     }
-}
+  }
 
-function removeItem(){
-    var li = ul.children
-    for (let index = 0; index < li.length; index++){
-        while (li[index] && li[index].children[0].checked){
-            ul.removeChild(li[index])
-        }
-    }
-}
+  function deleteTask(listItem) {
+    listItem.remove();
+  }

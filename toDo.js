@@ -1,40 +1,46 @@
+/*
+*****Oselu Fortunatus (W)*****
+
+addTask: its a function that takes no parameter called at the click of a button that;
+            a. gets user input
+            b. uses an if condition to create a new list when input isn't empty
+            c. creates an input of type "checkbox", checks when clicked
+            e. creates a delete button by the side of the input text which delets a single item
+            f. updates listItem by appending elements (checkbox, taskSpan and deleteButton)
+            g. updates the ul with the id; taskList and clears the input field
+
+toggleTaskStatus: a function that checks if the checkbox is ticked, it takes 2 parameters
+
+delateTask: a function that deletes inputed task
+*/
 function addTask() {
-    // Get the input value
-    var taskInput = document.getElementById('taskInput');
+    var taskInput = document.getElementById('taskInput');      
     var taskText = taskInput.value.trim();
 
-    // If the input is not empty
-    if (taskText !== '') {
-      // Create a new list item
-      var listItem = document.createElement('li');
+    if (taskText !== '') {                                 
+           var listItem = document.createElement('li');
 
-      // Create a checkbox
       var checkbox = document.createElement('input');
       checkbox.type = 'checkbox';
       checkbox.addEventListener('change', function () {
         toggleTaskStatus(listItem, checkbox.checked);
       });
 
-      // Create a span for the task text
       var taskSpan = document.createElement('span');
       taskSpan.textContent = taskText;
 
-      // Create a delete button
       var deleteButton = document.createElement('button');
       deleteButton.textContent = 'Delete';
       deleteButton.addEventListener('click', function () {
         deleteTask(listItem);
       });
 
-      // Append elements to the list item
       listItem.appendChild(checkbox);
       listItem.appendChild(taskSpan);
       listItem.appendChild(deleteButton);
 
-      // Append the list item to the task list
       document.getElementById('taskList').appendChild(listItem);
 
-      // Clear the input field
       taskInput.value = '';
     }
   }
